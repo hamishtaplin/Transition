@@ -5,7 +5,7 @@
 
 "use strict"  
 
-effects = SEQ.utils.namespace "effects"
+effects = SEQ.utils.namespace("effects")
 
 # list of transitionEnd event names
 transitionEndNames =
