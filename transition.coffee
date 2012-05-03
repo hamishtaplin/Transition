@@ -1,7 +1,7 @@
 # TRANSITION
 # ==========
 
-# Transition is CSS3 Transition engine with jQuery fallback. 
+# Transition is a CSS3 Transition API with jQuery fallback. 
 
 "use strict"  
 
