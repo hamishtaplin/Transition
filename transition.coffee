@@ -5,7 +5,7 @@
 
 "use strict"  
 
-effects = Namespace("effects")
+effects = Namespace("SEQ.effects")
 
 # class of static helper properties/methods 
 class effects.Transition 
@@ -20,7 +20,7 @@ class effects.Transition
 
   # utility function for getting vendor-prefixed property     
   @GetProp = (prop) ->  
-    for prefix in ["", "Webkit", "Moz", "O", "ms", "Khtml"] 
+    for prefix in ["", "Webkit", "Moz", "O", "ms", "Khtml"]
       p = "#{prefix}#{prop}"
       return p if document.body.style[p]?
 
@@ -34,7 +34,7 @@ class effects.Transition
       else
         # rock it old-skool
         @jqAnimate(options)
-      clearTimeout(t)      
+      clearTimeout(t)
     , options.delay or 0   
   
   @jqAnimate: (options) =>
@@ -45,12 +45,23 @@ class effects.Transition
     else
       # create one
       target = $(options.target)
+
+    # patch opacity transitions with fadein/out  
+    if options.props.opacity?
+      if options.props.opacity is 0
+        target.fadeOut(options.duration, options.complete)
+      if options.props.opacity is 1
+        target.fadeIn(options.duration, options.complete)
+      # remove opacity from property queue
+      delete options.opacity
+
     # pass user options unti jQuery animation API
     target.animate(
       options.props
     , 
       duration: options.duration
       complete: (e) =>
+        # if opacity
         if options.complete?
           options.complete.call(@)
     )

@@ -5,7 +5,7 @@
 
 "use strict"  
 
-effects = Namespace("effects")
+effects = Namespace("SEQ.effects")
 
 class effects.TransitionController
   constructor:(@options) ->
